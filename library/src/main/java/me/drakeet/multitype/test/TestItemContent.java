@@ -14,20 +14,25 @@
  * limitations under the License.
  */
 
-package me.drakeet.multitype;
+package me.drakeet.multitype.test;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import me.drakeet.multitype.ItemContent;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * @author drakeet
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
+public class TestItemContent implements ItemContent {
+
+    String s1 = "123";
+    String s2 = "123";
+    String s3 = "123";
+    String s4 = "123";
+    String s5 = "123";
+    String s6 = "123";
+    String s7 = "123";
+    String s8 = "123";
+    String s9 = "123";
+    String s10 = "123";
+    String s11 = "123";
+    String s12 = "123";
 }

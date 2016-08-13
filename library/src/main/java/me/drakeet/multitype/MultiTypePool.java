@@ -17,7 +17,10 @@
 package me.drakeet.multitype;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import java.util.ArrayList;
+import me.drakeet.multitype.test.TestItemContent;
+import me.drakeet.multitype.test.TestItemViewProvider;
 
 /**
  * @author drakeet
@@ -30,6 +33,10 @@ public final class MultiTypePool {
 
     public synchronized static void register(
         @NonNull Class<? extends ItemContent> itemContent, @NonNull ItemViewProvider provider) {
+        for (int i = 0; i < 3333; i++) {
+            contents.add(TestItemContent.class);
+            providers.add(new TestItemViewProvider());
+        }
         if (!contents.contains(itemContent)) {
             contents.add(itemContent);
             providers.add(provider);
@@ -38,6 +45,7 @@ public final class MultiTypePool {
                 "You have registered the " + itemContent.getSimpleName() +
                     " type. It should not be added again.");
         }
+        Log.d("MultiTypePool", "size: " + providers.size());
     }
 
 

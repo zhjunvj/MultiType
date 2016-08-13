@@ -17,6 +17,8 @@
 package me.drakeet.multitype.sample;
 
 import android.app.Application;
+import android.os.SystemClock;
+import android.util.Log;
 import me.drakeet.multitype.MultiTypePool;
 
 /**
@@ -26,8 +28,10 @@ public class App extends Application {
 
     @Override public void onCreate() {
         super.onCreate();
+        long start = SystemClock.currentThreadTimeMillis();
         MultiTypePool.register(TextItemContent.class, new TextItemViewProvider());
         MultiTypePool.register(ImageItemContent.class, new ImageItemViewProvider());
         MultiTypePool.register(RichItemContent.class, new RichItemViewProvider());
+        Log.d("InitialDuration", String.valueOf(SystemClock.currentThreadTimeMillis() - start));
     }
 }
