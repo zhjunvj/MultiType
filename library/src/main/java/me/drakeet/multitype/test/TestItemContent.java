@@ -23,16 +23,16 @@ import me.drakeet.multitype.ItemContent;
  */
 public class TestItemContent implements ItemContent {
 
-    String s1 = "12s13";
-    String s2 = "12s23";
-    String s3 = "12s33";
-    String s4 = "12s43";
-    String s5 = "12s53";
-    String s6 = "12s63";
-    String s7 = "12s73";
-    String s8 = "12s83";
-    String s9 = "12s93";
-    String s10 = "1s1023";
-    String s11 = "1s1123";
-    String s12 = "1s1223";
+    String s1 = "12s13" + Math.random();
+    String s2 = "12s23" + Math.random();
+    String s3 = "12s33" + Math.random();
+    String s4 = "12s43" + Math.random();
+    String s5 = "12s53" + Math.random();
+    String s6 = "12s63" + Math.random();
+    String s7 = "12s73" + Math.random();
+    String s8 = "12s83" + Math.random();
+    String s9 = "12s93" + Math.random();
+    String s10 = "1s1023" + Math.random();
+    String s11 = "1s1123" + Math.random();
+    String s12 = "1s1223" + Math.random();
 }
