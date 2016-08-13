@@ -23,16 +23,16 @@ import me.drakeet.multitype.ItemContent;
  */
 public class TestItemContent implements ItemContent {
 
-    String s1 = "123";
-    String s2 = "123";
-    String s3 = "123";
-    String s4 = "123";
-    String s5 = "123";
-    String s6 = "123";
-    String s7 = "123";
-    String s8 = "123";
-    String s9 = "123";
-    String s10 = "123";
-    String s11 = "123";
-    String s12 = "123";
+    String s1 = "12s13";
+    String s2 = "12s23";
+    String s3 = "12s33";
+    String s4 = "12s43";
+    String s5 = "12s53";
+    String s6 = "12s63";
+    String s7 = "12s73";
+    String s8 = "12s83";
+    String s9 = "12s93";
+    String s10 = "1s1023";
+    String s11 = "1s1123";
+    String s12 = "1s1223";
 }
