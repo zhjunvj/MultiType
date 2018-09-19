@@ -16,6 +16,7 @@
 
 package me.drakeet.multitype.sample.weibo;
 
+import android.support.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -31,24 +32,24 @@ import me.drakeet.multitype.sample.weibo.content.SimpleText;
  */
 public class WeiboContentDeserializer implements JsonDeserializer<WeiboContent> {
 
-    @Override
-    public WeiboContent deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-        throws JsonParseException {
-        Gson gson = GsonProvider.gson;
-        JsonObject jsonObject = (JsonObject) json;
-        final String contentType = stringOrEmpty(jsonObject.get("content_type"));
-        WeiboContent content = null;
+  @Override
+  public WeiboContent deserialize(JsonElement json, Type type, JsonDeserializationContext context)
+      throws JsonParseException {
+    Gson gson = WeiboJsonParser.GSON;
+    JsonObject jsonObject = (JsonObject) json;
+    final String contentType = stringOrEmpty(jsonObject.get("content_type"));
+    WeiboContent content = null;
 
-        if (contentType.equals(SimpleText.TYPE)) {
-            content = gson.fromJson(json, SimpleText.class);
-        } else if (contentType.equals(SimpleImage.TYPE)) {
-            content = gson.fromJson(json, SimpleImage.class);
-        }
-        return content;
+    if (SimpleText.TYPE.equals(contentType)) {
+      content = gson.fromJson(json, SimpleText.class);
+    } else if (SimpleImage.TYPE.equals(contentType)) {
+      content = gson.fromJson(json, SimpleImage.class);
     }
+    return content;
+  }
 
 
-    private String stringOrEmpty(JsonElement jsonElement) {
-        return jsonElement.isJsonNull() ? "" : jsonElement.getAsString();
-    }
+  private @NonNull String stringOrEmpty(JsonElement jsonElement) {
+    return jsonElement.isJsonNull() ? "" : jsonElement.getAsString();
+  }
 }

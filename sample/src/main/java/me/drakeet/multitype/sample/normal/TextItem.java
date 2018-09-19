@@ -18,37 +18,43 @@ package me.drakeet.multitype.sample.normal;
 
 import android.support.annotation.NonNull;
 import com.google.gson.Gson;
-import me.drakeet.multitype.Item;
+import java.nio.charset.Charset;
 import me.drakeet.multitype.sample.Savable;
 
 /**
  * @author drakeet
  */
-public class TextItem implements Item, Savable {
+public class TextItem implements Savable {
 
-    @NonNull public String text;
-
-
-    public TextItem(@NonNull String text) {
-        this.text = text;
-    }
+  public String text;
 
 
-    public TextItem(@NonNull byte[] data) {
-        init(data);
-    }
+  public TextItem(@NonNull String text) {
+    this.text = text;
+  }
 
 
-    @Override public void init(@NonNull byte[] data) {
-        String json = new String(data);
-        this.text = new Gson().fromJson(json, TextItem.class).text;
-    }
+  public TextItem(@NonNull byte[] data) {
+    init(data);
+  }
 
 
-    @NonNull @Override public byte[] toBytes() {
-        return new Gson().toJson(this).getBytes();
-    }
+  @Override
+  public final void init(@NonNull byte[] data) {
+    String json = new String(data, UTF_8);
+    this.text = new Gson().fromJson(json, TextItem.class).text;
+  }
 
 
-    @NonNull @Override public String describe() { return "Text";}
+  @Override
+  public @NonNull byte[] toBytes() {
+    return new Gson().toJson(this).getBytes(UTF_8);
+  }
+
+
+  @Override
+  public @NonNull String describe() { return "Text"; }
+
+
+  private static final Charset UTF_8 = Charset.forName("UTF-8");
 }

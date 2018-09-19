@@ -20,55 +20,60 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import java.util.List;
 
+import static me.drakeet.multitype.Preconditions.checkNotNull;
+
 /**
  * @author drakeet
  */
-public class MultiTypeAsserts {
+public final class MultiTypeAsserts {
 
-    private MultiTypeAsserts() {
-        throw new AssertionError();
+  private MultiTypeAsserts() {
+    throw new AssertionError();
+  }
+
+
+  /**
+   * Makes the exception to occur in your class for debug and index.
+   *
+   * @param adapter the MultiTypeAdapter
+   * @param items the items list
+   * @throws BinderNotFoundException if check failed
+   * @throws IllegalArgumentException if your Items/List is empty
+   */
+  @SuppressWarnings("unchecked")
+  public static void assertAllRegistered(@NonNull MultiTypeAdapter adapter, @NonNull List<?> items)
+      throws BinderNotFoundException, IllegalArgumentException, IllegalAccessError {
+    checkNotNull(adapter);
+    checkNotNull(items);
+    if (items.isEmpty()) {
+      throw new IllegalArgumentException("Your Items/List is empty.");
     }
-
-
-    /**
-     * Make the exception to occur in your class for debug and index.
-     *
-     * @throws ProviderNotFoundException If check failed.
-     * @throws IllegalArgumentException If your Items/List is empty.
-     */
-    @SuppressWarnings("unchecked")
-    public static void assertAllRegistered(
-        @NonNull MultiTypeAdapter adapter,
-        @NonNull List<? extends Item> items)
-        throws ProviderNotFoundException, IllegalArgumentException, IllegalAccessError {
-
-        if (items.size() == 0) {
-            throw new IllegalArgumentException("Your Items/List is empty.");
-        }
-        for (Item item : items) {
-            adapter.indexOf(adapter.onFlattenClass(item));
-        }
-        /* All passed. */
+    for (int i = 0; i < items.size(); i++) {
+      adapter.indexInTypesOf(i, items.get(0));
     }
+    /* All passed. */
+  }
 
 
-    /**
-     * @throws IllegalAccessError The assertHasTheSameAdapter() method must be placed after
-     * recyclerView.setAdapter()
-     * @throws IllegalArgumentException If your recyclerView's adapter
-     * is not the sample with the argument adapter.
-     */
-    public static void assertHasTheSameAdapter(
-        @NonNull RecyclerView recyclerView, @NonNull MultiTypeAdapter adapter)
-        throws IllegalArgumentException, IllegalAccessError {
-        if (recyclerView.getAdapter() == null) {
-            throw new IllegalAccessError(
-                "The assertHasTheSameAdapter() method must be placed after recyclerView.setAdapter()");
-        }
-        if (recyclerView.getAdapter() != adapter) {
-            throw new IllegalArgumentException(
-                "Your recyclerView's adapter is not the sample with the argument adapter.");
-        }
+  /**
+   * @param recyclerView the RecyclerView
+   * @param adapter the MultiTypeAdapter
+   * @throws IllegalAccessError The assertHasTheSameAdapter() method must be placed after
+   * recyclerView.setAdapter().
+   * @throws IllegalArgumentException If your recyclerView's adapter.
+   * is not the sample with the argument adapter.
+   */
+  public static void assertHasTheSameAdapter(@NonNull RecyclerView recyclerView, @NonNull MultiTypeAdapter adapter)
+      throws IllegalArgumentException, IllegalAccessError {
+    checkNotNull(recyclerView);
+    checkNotNull(adapter);
+    if (recyclerView.getAdapter() == null) {
+      throw new IllegalAccessError("The assertHasTheSameAdapter() method must " +
+          "be placed after recyclerView.setAdapter()");
     }
-
+    if (recyclerView.getAdapter() != adapter) {
+      throw new IllegalArgumentException(
+          "Your recyclerView's adapter is not the sample with the argument adapter.");
+    }
+  }
 }

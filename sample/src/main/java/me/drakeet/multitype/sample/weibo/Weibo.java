@@ -17,22 +17,27 @@
 package me.drakeet.multitype.sample.weibo;
 
 import android.support.annotation.NonNull;
-import me.drakeet.multitype.Item;
 
 /**
  * @author drakeet
  */
-public class Weibo implements Item {
+public class Weibo {
 
-    @NonNull public User user;
-    @NonNull public WeiboContent content;
-    @NonNull public String createTime;
-    /* ... id, counts, etc. */
+  public @NonNull User user;
+  public @NonNull WeiboContent content;
+  public @NonNull String createTime;
+  /* ... id, counts, etc. */
 
 
-    public Weibo(@NonNull User user, @NonNull WeiboContent content) {
-        this.user = user;
-        this.content = content;
-        this.createTime = "Just now";
-    }
+  public Weibo(@NonNull User user, @NonNull WeiboContent content) {
+    this.user = user;
+    this.content = content;
+    this.createTime = "Just now";
+  }
+
+
+  @Override
+  public String toString() {
+    return "content: " + content.getClass().getSimpleName();
+  }
 }

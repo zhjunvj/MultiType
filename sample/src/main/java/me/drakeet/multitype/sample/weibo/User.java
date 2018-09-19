@@ -24,12 +24,12 @@ import android.support.annotation.NonNull;
  */
 public class User {
 
-    @NonNull public String name;
-    @DrawableRes public int avatar;
+  public @NonNull String name;
+  public @DrawableRes int avatar;
 
 
-    public User(@NonNull String name, int avatar) {
-        this.name = name;
-        this.avatar = avatar;
-    }
+  public User(@NonNull String name, int avatar) {
+    this.name = name;
+    this.avatar = avatar;
+  }
 }

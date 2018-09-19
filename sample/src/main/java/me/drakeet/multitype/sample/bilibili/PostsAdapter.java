@@ -16,12 +16,15 @@
 
 package me.drakeet.multitype.sample.bilibili;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import java.util.Collections;
 import java.util.List;
 import me.drakeet.multitype.sample.R;
 
@@ -30,45 +33,46 @@ import me.drakeet.multitype.sample.R;
  */
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
 
-    private List<Post> posts;
+  private List<Post> posts = Collections.emptyList();
 
 
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
+  public void setPosts(@NonNull List<Post> posts) {
+    this.posts = posts;
+  }
+
+
+  @NonNull @Override
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_horizontal_post, parent, false);
+    return new ViewHolder(view);
+  }
+
+
+  @Override
+  public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    Post post = posts.get(position);
+    holder.cover.setImageResource(post.coverResId);
+    holder.title.setText(post.title);
+  }
+
+
+  @Override
+  public int getItemCount() {
+    return posts.size();
+  }
+
+
+  public static class ViewHolder extends RecyclerView.ViewHolder {
+
+    @NonNull ImageView cover;
+    @NonNull TextView title;
+
+
+    ViewHolder(View itemView) {
+      super(itemView);
+      cover = itemView.findViewById(R.id.cover);
+      title = itemView.findViewById(R.id.title);
+      itemView.setOnClickListener(v -> Toast.makeText(v.getContext(), String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show());
     }
-
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.item_horizontal_post, parent, false);
-        return new ViewHolder(view);
-    }
-
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Post post = posts.get(position);
-        holder.cover.setImageResource(post.coverResId);
-        holder.title.setText(post.title);
-    }
-
-
-    @Override public int getItemCount() {
-        return posts != null ? posts.size() : 0;
-    }
-
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView cover;
-        TextView title;
-
-
-        ViewHolder(View itemView) {
-            super(itemView);
-            cover = (ImageView) itemView.findViewById(R.id.cover);
-            title = (TextView) itemView.findViewById(R.id.title);
-        }
-    }
+  }
 }
